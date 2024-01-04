@@ -1,0 +1,9 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "prisma": "^5.7.1"
+  }
+}
