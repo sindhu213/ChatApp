@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  hashedPassword String?
+  email          String?        @unique
+  emailVerified  DateTime?
+  image          String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  GroupMessage   GroupMessage[]
+  Account        Account[]
+
+  @@map("user")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  token_type        String?
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  id_token          String? @db.String
+  scope             String?
+  session_state     String?
+  expires_at        Int?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+
+  @@unique([provider, providerAccountId])
+  @@map("account")
+}
+
+model PrivateMessage {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  to         String
+  from       String
+  content    String
+  created_at DateTime @default(now())
+}
+
+model GroupMessage {
+  channel_id String   @id @default(auto()) @map("_id") @db.ObjectId
+  message_id String
+  user       User     @relation(fields: [userID], references: [id])
+  userID     String   @db.ObjectId
+  content    String
+  created_at DateTime @default(now())
+}
