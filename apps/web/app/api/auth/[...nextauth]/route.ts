@@ -8,16 +8,19 @@ const prisma = new PrismaClient();
 
 const handler = NextAuth({
   providers: [
+
     GoogleProvider({
       clientId: process.env.CLIENT_ID ?? "",
       clientSecret: process.env.CLIENT_SECRET ?? "",
     }),
+
     CredentialsProvider({
       name:"Credentials",
       credentials: {
         email: {label:"Email",type:"email",placeholder:"jsmith@gmail.com"},
         password: {label:"Password",type:"password"}
       },
+      
       async authorize(credentials){
         if(!credentials?.email || !credentials?.password){
           throw new Error("Invalid Credentials!");
