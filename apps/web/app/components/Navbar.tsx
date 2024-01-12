@@ -1,5 +1,6 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import AuthForm from "app/components/AuthForm";
 
 function Authenticate() {
   const { data: session } = useSession();
@@ -21,6 +22,7 @@ function Authenticate() {
 export default function Navbar() {
   return (
     <div>
+      <AuthForm/>
       <Authenticate />
     </div>
   );
