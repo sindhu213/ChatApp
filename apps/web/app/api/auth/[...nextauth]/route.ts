@@ -6,7 +6,6 @@ import { getUser } from "app/lib/utils";
 import bcrypt from "bcrypt";
 import prisma from "app/lib/prismadb";
 
-
 const handler = NextAuth({
     providers: [
         GoogleProvider({
