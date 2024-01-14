@@ -1,5 +1,6 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import AuthForm from "app/components/Authentication/AuthForm";
 
 function Authenticate() {
   const { data: session } = useSession();
@@ -7,15 +8,13 @@ function Authenticate() {
     return (
       <>
         {session.user?.name}
-        <br />
         <button onClick={() => signOut()}>Sign out</button>
       </>
     );
   }
   return (
     <>
-      Not signed in? <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <button onClick={() => signIn("google")}>Sign in</button>
     </>
   );
 }
@@ -23,6 +22,7 @@ function Authenticate() {
 export default function Navbar() {
   return (
     <div>
+      <AuthForm/>
       <Authenticate />
     </div>
   );
