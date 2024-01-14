@@ -1,6 +1,6 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
-import AuthForm from "app/components/AuthForm";
+import AuthForm from "app/components/Authentication/AuthForm";
 
 function Authenticate() {
   const { data: session } = useSession();
